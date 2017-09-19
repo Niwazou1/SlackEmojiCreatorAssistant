@@ -1,6 +1,6 @@
 {
     "name": "SECAssistant",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "manifest_version": 2,
     "description": "Slackの絵文字作成時に、画像のプレビューを表示します。",
     "icons": {
@@ -13,7 +13,7 @@
     },
     "content_scripts": [
         {
-        "matches": ["https://*.slack.com/customize/emoji"],
+        "matches": ["https://*.slack.com/customize/emoji","https://*.slack.com/customize/emoji?*"],
         "js": ["./js/script.js"],
         "css": ["./css/style.css"],
         "run_at": "document_idle"
