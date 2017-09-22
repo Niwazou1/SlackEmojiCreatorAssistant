@@ -1,10 +1,13 @@
 function createImgElement (size, url){
     let element = document.createElement("img");
         element.className = "images";
-        element.src = url;
-        element.width = size;
-        element.height = size;
-    
+        element.style.backgroundImage = `url(${url})`;    
+        element.style.backgroundRepeat = "no-repeat";
+        element.style.backgroundPosition = "50% 50%";
+        element.style.backgroundSize = "contain";
+        element.style.width =  size + "px";
+        element.style.height = size + "px";
+
     return element;
 }
 
@@ -24,13 +27,19 @@ let textBlock3 = document.createElement("div");
     textBlock3.id = "textBlock3";
 let text16 = document.createTextNode("リアクション：");
 
+//let textBlock4 = document.createElement("div");
+//    textBlock4.id = "textBlock4";
+//let textFileSize = document.createTextNode("ファイルのサイズ：")
+
 div.appendChild(textBlock1);
 div.appendChild(textBlock2);
 div.appendChild(textBlock3);
+//div.appendChild(textBlock4);
 
 textBlock1.appendChild(text32);
 textBlock2.appendChild(text22);
 textBlock3.appendChild(text16);
+//textBlock4.appendChild(textFileSize);
 
 //Input type:fileが変更された(ファイルが選択された)とき
 document.getElementById("emojiimg").addEventListener("change", function () {
@@ -56,10 +65,12 @@ document.getElementById("emojiimg").addEventListener("change", function () {
             let img32 = createImgElement(32, e.target.result);
             let img22 = createImgElement(22, e.target.result);
             let img16 = createImgElement(16, e.target.result);
+            //let imgFileSize = e.target.size;
 
             textBlock1.appendChild(img32);
             textBlock2.appendChild(img22);
             textBlock3.appendChild(img16);
+            //textBlock4.appendChild(imgFileSize);
         }
     }
 });
