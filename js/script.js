@@ -11,6 +11,7 @@ function createImgElement (size, url){
 //画像のリストを挿入する位置を取得
 let div = document.querySelector("div.col.span_1_of_2"); 
 
+//プレビューを表示するエリアを整備
 let textBlock1 = document.createElement("div");
     textBlock1.id = "textBlock1";
 let text32 = document.createTextNode("単体で使う場合：");
@@ -31,7 +32,9 @@ textBlock1.appendChild(text32);
 textBlock2.appendChild(text22);
 textBlock3.appendChild(text16);
 
+//Input type:fileが変更された(ファイルが選択された)とき
 document.getElementById("emojiimg").addEventListener("change", function () {
+    //ファイルが入ってるかをチェック
     if (this.files.length > 0) {
         //選択されたファイル情報を取得
         let file = this.files[0];
@@ -40,9 +43,12 @@ document.getElementById("emojiimg").addEventListener("change", function () {
         let reader = new FileReader();
         reader.readAsDataURL(file);
 
+        //ファイルが読み込み終わったタイミングで発動
         reader.onload = function (e) {
+            //挿入した画像たちを取得
             let images = document.getElementsByClassName("images");
 
+            //最初に画像が入ってたら子ノードを削除
             while(images[0]){
                 images[0].parentNode.removeChild(images[0]);
             }
