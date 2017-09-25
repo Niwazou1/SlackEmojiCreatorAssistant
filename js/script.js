@@ -14,7 +14,7 @@ function createImgElement (size, url){
 //画像のリストを挿入する位置を取得
 let div = document.querySelector("div.col.span_1_of_2"); 
 
-//プレビューを表示するエリアを整備
+//ステータスを表示するエリアを整備
 let textBlock1 = document.createElement("div");
     textBlock1.id = "textBlock1";
 let text32 = document.createTextNode("単体で使う場合：");
@@ -27,19 +27,26 @@ let textBlock3 = document.createElement("div");
     textBlock3.id = "textBlock3";
 let text16 = document.createTextNode("リアクション：");
 
-//let textBlock4 = document.createElement("div");
-//    textBlock4.id = "textBlock4";
-//let textFileSize = document.createTextNode("ファイルのサイズ：")
+let textBlock4 = document.createElement("div");
+    textBlock4.id = "textBlock4";
+let textFileSize = document.createTextNode("ファイルのサイズ：");
+
+let textBlockFileSize = document.createElement("p");
+    textBlockFileSize.id = "fileSize";
+let fileSizeUnit = document.createTextNode("KB");
+//この機能はいずれ実装しまーす
+//let fileSizeAlert = document.createTextNode("ファイルサイズが大きすぎます！64KB以下にリサイズしてください");
 
 div.appendChild(textBlock1);
 div.appendChild(textBlock2);
 div.appendChild(textBlock3);
-//div.appendChild(textBlock4);
+div.appendChild(textBlock4);
 
 textBlock1.appendChild(text32);
 textBlock2.appendChild(text22);
 textBlock3.appendChild(text16);
-//textBlock4.appendChild(textFileSize);
+textBlock4.appendChild(textFileSize);
+
 
 //Input type:fileが変更された(ファイルが選択された)とき
 document.getElementById("emojiimg").addEventListener("change", function () {
@@ -54,10 +61,15 @@ document.getElementById("emojiimg").addEventListener("change", function () {
 
         //ファイルが読み込み終わったタイミングで発動
         reader.onload = function (e) {
-            //挿入した画像たちを取得
-            let images = document.getElementsByClassName("images");
+            //挿入した画像たちとファイルのサイズを取得
+            let images = document.getElementsByClassName("images"); 
+            let targetElement = document.getElementById("fileSize");
 
-            //最初に画像が入ってたら子ノードを削除
+            //2回目以降のために結果を削除
+            if(images[0]){
+                targetElement.removeChild(targetElement.childNodes.item(0));
+            }
+
             while(images[0]){
                 images[0].parentNode.removeChild(images[0]);
             }
@@ -65,12 +77,14 @@ document.getElementById("emojiimg").addEventListener("change", function () {
             let img32 = createImgElement(32, e.target.result);
             let img22 = createImgElement(22, e.target.result);
             let img16 = createImgElement(16, e.target.result);
-            //let imgFileSize = e.target.size;
+            let fileSize = document.createTextNode((file.size / 1000).toString());
 
             textBlock1.appendChild(img32);
             textBlock2.appendChild(img22);
             textBlock3.appendChild(img16);
-            //textBlock4.appendChild(imgFileSize);
+            textBlock4.appendChild(textBlockFileSize);
+            textBlockFileSize.appendChild(fileSize);
+            textBlockFileSize.appendChild(fileSizeUnit);           
         }
     }
 });
