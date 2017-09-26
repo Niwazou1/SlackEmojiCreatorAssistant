@@ -35,17 +35,24 @@ let textBlockFileSize = document.createElement("p");
     textBlockFileSize.id = "fileSize";
 let fileSizeUnit = document.createTextNode("KB");
 //この機能はいずれ実装しまーす
-//let fileSizeAlert = document.createTextNode("ファイルサイズが大きすぎます！64KB以下にリサイズしてください");
+let textBlock5 = document.createElement("div");
+    textBlock5.id = "textBlock5";
+let sizeAlert = document.createElement("p");
+    sizeAlert.id = "sizeAlert";
+let fileSizeSuccess = document.createTextNode("この画像は追加可能です");
+let fileSizeAlert = document.createTextNode("ファイルサイズが大きすぎます！64KB以下にリサイズしてください");
 
 div.appendChild(textBlock1);
 div.appendChild(textBlock2);
 div.appendChild(textBlock3);
 div.appendChild(textBlock4);
+div.appendChild(textBlock5);
 
 textBlock1.appendChild(text32);
 textBlock2.appendChild(text22);
 textBlock3.appendChild(text16);
 textBlock4.appendChild(textFileSize);
+textBlock5.appendChild(sizeAlert);
 
 
 //Input type:fileが変更された(ファイルが選択された)とき
@@ -64,14 +71,26 @@ document.getElementById("emojiimg").addEventListener("change", function () {
             //挿入した画像たちとファイルのサイズを取得
             let images = document.getElementsByClassName("images"); 
             let targetElement = document.getElementById("fileSize");
+            let targetNode = document.getElementById("sizeAlert");
 
             //2回目以降のために結果を削除
             if(images[0]){
                 targetElement.removeChild(targetElement.childNodes.item(0));
+            }  
+
+            if(targetNode.childNodes.item(0)){
+                targetNode.removeChild(targetNode.childNodes.item(0));
             }
 
             while(images[0]){
                 images[0].parentNode.removeChild(images[0]);
+            }
+
+            //ファイルの大きさが64KBを超える場合、注意する
+            if(file.size > 64000){
+                targetNode.appendChild(fileSizeAlert);
+            } else {   
+                targetNode.appendChild(fileSizeSuccess);
             }
 
             let img32 = createImgElement(32, e.target.result);
