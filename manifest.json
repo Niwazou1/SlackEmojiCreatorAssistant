@@ -1,15 +1,12 @@
 {
     "name": "SECAssistant",
-    "version": "1.2.0.1",
+    "version": "1.3.0",
     "manifest_version": 2,
     "description": "Slackの絵文字作成時に、画像のステータスを表示します。",
     "icons": {
       "16": "icons/icon16.png",
       "48": "icons/icon48.png",
       "128": "icons/icon128.png"
-    },
-    "background": {
-        "scripts": ["./js/background.js"]
     },
     "content_scripts": [
         {

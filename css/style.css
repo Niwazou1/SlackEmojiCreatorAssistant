@@ -1,3 +1,8 @@
-#fileSize{
+#fileSizeArea{
     display: inline-block;
+}
+
+#getImageSize{
+    width: auto;
+    height: auto;
 }
